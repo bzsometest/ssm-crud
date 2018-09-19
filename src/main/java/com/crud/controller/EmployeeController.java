@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crud.bean.Employee;
 import com.crud.bean.Msg;
-import com.curd.service.EmployeeService;
+import com.crud.service.EmployeeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 

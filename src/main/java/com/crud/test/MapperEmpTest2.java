@@ -1,7 +1,5 @@
 package com.crud.test;
 
-import java.util.UUID;
-
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crud.bean.Employee;
 import com.crud.dao.DepartmentMapper;
 import com.crud.dao.EmployeeMapper;
-import com.curd.service.EmployeeService;
+import com.crud.service.EmployeeService;
 
 /**
  * 测试dao层的工作

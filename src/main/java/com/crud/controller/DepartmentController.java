@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crud.bean.Department;
 import com.crud.bean.Msg;
-import com.curd.service.DepartmentService;
+import com.crud.service.DepartmentService;
 
 /**
  * 处理和部门有关的请求
