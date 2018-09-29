@@ -1,14 +1,13 @@
 package com.crud.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.crud.bean.Employee;
 import com.crud.bean.EmployeeExample;
 import com.crud.bean.EmployeeExample.Criteria;
 import com.crud.dao.EmployeeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -33,7 +32,6 @@ public class EmployeeService {
      * @param employee
      */
     public void saveEmp(Employee employee) {
-        // TODO Auto-generated method stub
         employeeMapper.insertSelective(employee);
     }
 
@@ -79,5 +77,17 @@ public class EmployeeService {
      */
     public void deleteEmpById(Integer emp_id) {
         employeeMapper.deleteByPrimaryKey(emp_id);
+    }
+
+    /**
+     * 批量删除员工
+     *
+     * @param ids
+     */
+    public void deleteBatch(List<Integer> ids) {
+        EmployeeExample employeeExample = new EmployeeExample();
+        Criteria criteria = employeeExample.createCriteria();
+        criteria.andEmp_IdIn(ids);
+        employeeMapper.deleteByExample(employeeExample);
     }
 }

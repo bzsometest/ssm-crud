@@ -154,9 +154,8 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-8">
             <button class="btn btn-primary" id="emp_add_modal_btn">新增</button>
-            <button class="btn btn-danger" id="emp_delete_modal">删除</button>
+            <button class="btn btn-danger" id="emp_delete_all_btn">删除</button>
         </div>
-
     </div>
 
 
@@ -166,6 +165,7 @@
             <table class="table table-hover" id="emps_table">
                 <thead>
                 <tr>
+                    <th><input type="checkbox" id="check_all"/></th>
                     <th>#</th>
                     <th>empName</th>
                     <th>gender</th>

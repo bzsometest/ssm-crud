@@ -7,7 +7,57 @@ $(function () {
     to_page(1);
     //加载部门信息
     getDepts();
+
+    //给所有选择添加监听事件
+    addCheckListener();
+    addDeleteAllListener();
 });
+
+function addCheckListener() {
+    $("#check_all").click(function () {
+        var isChecked = $(this).prop("checked");
+        $(".check_item").prop("checked", isChecked);
+
+        $(".check_item").on("click", function () {
+            var check_length = $(".check_item").length;
+            var check_count = $(".check_item:checked").length;
+
+            //当前被全选
+            if (check_count == check_length) {
+                $("#check_all").prop("checked", true);
+            } else {
+                $("#check_all").prop("checked", false);
+            }
+
+        });
+    });
+}
+
+function addDeleteAllListener() {
+    var empNames = "";
+    var del_idstr = "";
+
+    $("#emp_delete_all_btn").click(function () {
+        $.each($(".check_item:checked"), function () {
+            empNames += $(this).parents("tr").find("td:eq(2)").text() + ",";
+            del_idstr += $(this).parents("tr").find("td:eq(1)").text() + "-";
+        });
+        //去除empNames多余的逗号,
+        empNames = empNames.substring(0, empNames.length - 1);
+        //去除del_idstr多余的-
+        del_idstr = del_idstr.substring(0, del_idstr.length - 1);
+        if (confirm("确认删除吗？" + empNames)) {
+            $.ajax({
+                url: webPath + "/emp/" + del_idstr,
+                type: "delete",
+                success: function (result) {
+                    console.log(result);
+                    to_page(currentPage);
+                }
+            });
+        }
+    });
+}
 
 function to_page(pn) {
     $.ajax({
@@ -31,6 +81,7 @@ function build_emps_table(result) {
     // 清空table表格
     $("#emps_table tbody").empty();
     $.each(emps, function (index, item) {
+        var check_item = $("<td></td>").append("<input type='checkbox' class='check_item'>")
         var empIdTd = $("<td></td>").append(item.emp_Id);
         var empNameTd = $("<td></td>").append(item.emp_name);
         var empGenderTd = $("<td></td>").append(
@@ -54,7 +105,7 @@ function build_emps_table(result) {
         var btnTd = $("<td></td>").append(editBtn).append(" ")
             .append(delBtn);
 
-        var empTr = $("<tr></tr>").append(empIdTd).append(
+        var empTr = $("<tr></tr>").append(check_item).append(empIdTd).append(
             empNameTd).append(empGenderTd).append(
             empEmailTd).append(empDeptNameTd).append(
             empEmailTd).append(btnTd);
